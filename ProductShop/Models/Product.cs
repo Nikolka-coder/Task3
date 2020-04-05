@@ -23,7 +23,7 @@ namespace ProductShop.Models
         [Required]
         public string Description { get; set; }
         [Required]
-        Meausure Meausure { get; set; }
+        public Meausure Meausure { get; set; }
 
     }
 }
