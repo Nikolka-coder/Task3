@@ -9,12 +9,7 @@
 <p>
     @Html.ActionLink("Add new product", "AddProduct")
 </p>
-<p>
-    @Html.ActionLink("Edit", "EditProduct") 
-</p>
-<p>
-    @Html.ActionLink("Delete", "DeleteProduct")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -38,32 +33,76 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpiryDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = item.ProductId }) |
+                @Html.ActionLink("Details", "DetailsProduct", new { id = item.ProductId }) |
+                <a data-toggle="modal" data-target="#exampleModal" id=@item.ProductId class="del">
+                    Delete
+                </a>
+
+            </td>
+        </tr>
+    }
 
 </table>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="DeleteButton" class="btn btn-default">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        let id;
+        $('.del').on('click', function () {
+            id = $(this).attr('id')
+        })
+        $('#DeleteButton').on('click', function () {
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                url: 'Product/DeleteProduct?id=' + id,
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        })
+    </script>
+}
+
+

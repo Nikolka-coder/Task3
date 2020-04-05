@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -103,9 +104,11 @@ namespace ProductShop.Controllers
                 var products = Session["Products"] as List<Product>;
                 if (prodId != 0)
                 {
-                    var currentProduct = products.Where(p => p.ProductId == prodId);
-
+                    var currentProduct = products.FirstOrDefault(p => p.ProductId == prodId);
+                    products.Remove(currentProduct);
+                    products.Add(product);
                 }
+
                 return RedirectToAction("Index");
             }
             else
@@ -115,11 +118,6 @@ namespace ProductShop.Controllers
 
         }
         [HttpGet]
-        public ActionResult DeleteProduct()
-        {
-            return View();
-        }
-        [HttpPost]
         public ActionResult DeleteProduct(int id)
         {
             var products = Session["Products"] as List<Product>;
@@ -129,8 +127,17 @@ namespace ProductShop.Controllers
                 products.Remove(removedProduct);
             }
             Session["Products"] = products;
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
-
+        [HttpGet]
+        public ActionResult DetailsProduct()
+        {
+            return View();        
+        }
+        [HttpPost]
+        public ActionResult DetailsProduct(Product product)
+        {
+            return View(product);
+        }
     }
 }
