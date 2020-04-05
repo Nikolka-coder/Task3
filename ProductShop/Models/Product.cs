@@ -10,22 +10,20 @@ namespace ProductShop.Models
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
-        public string Quantity { get; set; }
+        [Required]
+        public double Quantity { get; set; }
         [Required]
         public double Price { get; set; }
-        [Required]
-        public int Count { get; set; }
         [Required]
         [DataType(DataType.Date)]
         public DateTime ProductionDate { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        public DateTime ExcpiryDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]
         Meausure Meausure { get; set; }
-        public string Logo { get; set; }
 
     }
 }

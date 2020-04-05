@@ -7,7 +7,13 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddProduct")
+</p>
+<p>
+    @Html.ActionLink("Edit", "EditProduct") 
+</p>
+<p>
+    @Html.ActionLink("Delete", "DeleteProduct")
 </p>
 <table class="table">
     <tr>
@@ -21,19 +27,13 @@
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Count)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ProductionDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExcpiryDate)
+            @Html.DisplayNameFor(model => model.ExpiryDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
         </th>
         <th></th>
     </tr>
@@ -50,19 +50,13 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Count)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.ProductionDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ExcpiryDate)
+            @Html.DisplayFor(modelItem => item.ExpiryDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Logo)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
