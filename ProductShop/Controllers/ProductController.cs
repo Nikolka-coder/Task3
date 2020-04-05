@@ -28,7 +28,7 @@ namespace ProductShop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddProduct( Product product)
+        public ActionResult AddProduct(Product product)
         {
             if (!Regex.IsMatch(product.Name, "[A-Za-zА-Яа-я0-9\\.]+"))
             {
@@ -130,14 +130,19 @@ namespace ProductShop.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
         [HttpGet]
-        public ActionResult DetailsProduct()
+        public ActionResult DetailsProduct(int id)
         {
-            return View();        
-        }
-        [HttpPost]
-        public ActionResult DetailsProduct(Product product)
-        {
-            return View(product);
+            Session["ProdId"] = id;
+            var products = Session["Products"] as List<Product>;
+            var currentProduct = products.FirstOrDefault(p => p.ProductId == id);
+            if (currentProduct != null)
+            {
+                return View(currentProduct);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
     }
 }
